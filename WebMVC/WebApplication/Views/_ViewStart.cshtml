@@ -1,0 +1,13 @@
+﻿@{
+    //获取请求 路由中 Controller的字符串  如果格式不确定可以 ToLower转小写 或 ToUpper转大写
+    string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    //设置默认模板信息
+    string cLayout = "~/Views/Shared/_Layout.cshtml";
+    //如果存在  不同Controller对应不同 模板的话 在此判断
+    if (controller == "Account")
+    {
+        cLayout = "~/Views/Shared/_Layout.cshtml";
+    }
+    // Layout 代表最终结果 
+    Layout = cLayout;
+}
