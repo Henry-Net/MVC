@@ -18,5 +18,13 @@ namespace WebApplication.Controllers
             //返回一个PartialView分部视图  需要model放在名字后面
             return PartialView("_PartialUrgentNews");
         }
+        /// <summary>
+        /// 错误  异常  弹出页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
     }
 }

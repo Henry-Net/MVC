@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Drawing;
 
 namespace Common
 {
-    public class common
+    public class commons
     {
         #region 获取MD5加密
         public static string GetMD5Code(string input) 
@@ -73,7 +75,68 @@ namespace Common
         }
         #endregion
 
-        #region 校验MD5加密是否相同
+        #region 上传图片
+        //地址参数
+        private string FilePhysicalPath = string.Empty;
+        private string FileRelativePath = string.Empty;
+
+        /// <summary>
+        /// 检查是否为合法的上传图片
+        /// </summary>
+        /// <param name="_fileExt"></param>
+        /// <returns></returns>
+        public string CheckImage(HttpPostedFileBase imgfile)
+        {
+            //格式要求  全部拼写
+            string allowExt = ".gif.jpg.png";
+            string fileName = imgfile.FileName;
+            FileInfo file = new FileInfo(fileName);
+            string imgExt = file.Extension;
+            Image img = IsImage(imgfile);
+            string errorMsg = fileName + "：";
+            if (img == null)
+            {
+                errorMsg = "文件格式错误，请上传gif、jpg、png格式的图片";
+                return errorMsg;
+            }
+            if (allowExt.IndexOf(imgExt.ToLower()) == -1)
+            {
+                errorMsg = "请上传gif、jpg、png格式的图片；";
+            }
+            //if (imgfile.ContentLength > 512 * 1024)
+            //{
+            //    errorMsg += "图片最大限制为0.5Mb；";
+            //}
+            //if (img.Width < 20 || img.Width > 480 || img.Height < 20 || img.Height > 854)
+            //{
+            //    errorMsg += "请上传正确尺寸的图片，图片最小为20x20，最大为480*854。";
+            //}
+            if (errorMsg == fileName + "：")
+            {
+                return "";
+            }
+            return errorMsg;
+
+        }
+
+        /// <summary>
+        /// 验证是否为真正的图片
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private Image IsImage(HttpPostedFileBase file)
+        {
+            try
+            {
+                Image img = Image.FromStream(file.InputStream);
+                return img;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         #endregion
 
         #region 校验MD5加密是否相同

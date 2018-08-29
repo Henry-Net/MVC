@@ -4,5 +4,12 @@
 
     <div> 
         <h1 style="text-align:center">hello world</h1>
+        <form enctype="multipart/form-data" action="/Upload/UploadPic" method="post" id="UploadForm">
+            <div style="padding:15px; text-align:left;">
+                <input type="file" style="margin-bottom:10px;" name="UploadImage" id="UploadImage">
+                <input type="submit" class="btn btn-primary" value="上传">
+            </div>
+        </form>
+        <h1>@DateTime.Now.ToString("MMM dd,yyyy", System.Globalization.DateTimeFormatInfo.InvariantInfo)</h1>
     </div>
 

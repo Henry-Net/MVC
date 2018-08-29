@@ -12,7 +12,7 @@ namespace WebApplication.DAL
         {
             using (var context = new AccountContext())
             {
-                return context.AdminLogs.Where(a=>a.Id==85).ToList();
+                return context.AdminLogs.AsNoTracking().Where(a=>a.Id==85).ToList();
             }
         }
     }
